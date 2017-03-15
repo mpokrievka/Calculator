@@ -16,6 +16,12 @@ public class Calculator extends Activity implements View.OnClickListener {
     private Button buttonC;
     private TextView numberView;
     private ArrayList<Button> numberButtons = new ArrayList<Button>();
+    private int firstNumber = 0;
+
+    private enum State{
+        ADD, SUB, MUL, DIV, INIT
+    }
+    State state = State.INIT;
 
     public void setUpNumberButtonListener(){
         for(int i = 0; i<=9; i++){
@@ -55,6 +61,43 @@ public class Calculator extends Activity implements View.OnClickListener {
 
     private void clearTextView(){
         numberView.setText("0");
+        firstNumber = 0;
+        state = State.INIT;
+    }
+
+    private void clearNumberView(){
+        String tempString = numberView.getText().toString();
+        if(!tempString.equals("")){
+            firstNumber = Integer.valueOf(tempString);
+        }
+        numberView.setText("");
+    }
+
+    private void calculateResult(){
+        int secondNumber = 0;
+        String tempString = numberView.getText().toString();
+        if(!tempString.equals("")){
+            secondNumber = Integer.valueOf(tempString);
+        }
+
+        int result;
+        switch(state){
+            case ADD:
+                result = Calculations.doAddition(firstNumber, secondNumber);
+                break;
+            case SUB:
+                result = Calculations.doSubtraction(firstNumber, secondNumber);
+                break;
+            case MUL:
+                result = Calculations.doMultiplication(firstNumber, secondNumber);
+                break;
+            case DIV:
+                result = Calculations.doDivision(firstNumber, secondNumber);
+                break;
+            default:
+                result = secondNumber;
+        }
+        numberView.setText(Integer.toString(result));
     }
 
     @Override
@@ -62,20 +105,31 @@ public class Calculator extends Activity implements View.OnClickListener {
       Button clickedButton = (Button) v;
       switch(clickedButton.getId()){
           case R.id.buttonAdd:
+              clearNumberView();
+              state = State.ADD;
               break;
           case R.id.buttonSubstract:
+              clearNumberView();
+              state = State.SUB;
               break;
           case R.id.buttonMultiply:
+              clearNumberView();
+              state = State.MUL;
               break;
           case R.id.buttonDivide:
+              clearNumberView();
+              state = State.DIV;
               break;
           case R.id.buttonEqual:
+              calculateResult();
+              state = State.INIT;
               break;
           case R.id.buttonC:
               clearTextView();
               break;
           default:
               String recentNumber = numberView.getText().toString();
+
               if(recentNumber.equals("0")){
                   recentNumber = "";
               }

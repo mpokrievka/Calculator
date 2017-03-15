@@ -53,6 +53,56 @@ public class CalculatorInstrumentedTest {
     }
 
     @Test
+    public void TestAdditionButton() {
+        onView(withText("3")).perform(click());
+        onView(withText("+")).perform(click());
+        onView(withText("2")).perform(click());
+        onView(withText("=")).perform(click());
+
+        onView(withId(R.id.textView)).check(matches(withText("5")));
+    }
+
+    @Test
+    public void TestSubtractionButton() {
+        onView(withText("7")).perform(click());
+        onView(withText("-")).perform(click());
+        onView(withText("2")).perform(click());
+        onView(withText("=")).perform(click());
+
+
+        onView(withId(R.id.textView)).check(matches(withText("5")));
+    }
+
+    @Test
+    public void TestMultiplicationButton() {
+        onView(withText("3")).perform(click());
+        onView(withText("*")).perform(click());
+        onView(withText("2")).perform(click());
+        onView(withText("=")).perform(click());
+
+        onView(withId(R.id.textView)).check(matches(withText("6")));
+    }
+
+    @Test
+    public void TestDivisionButton() {
+        onView(withText("C")).perform(click());
+        onView(withText("6")).perform(click());
+        onView(withText("/")).perform(click());
+        onView(withText("2")).perform(click());
+        onView(withText("=")).perform(click());
+
+        onView(withId(R.id.textView)).check(matches(withText("3")));
+    }
+
+    @Test
+    public void TestEqualButton() {
+        onView(withText("4")).perform(click());
+        onView(withText("=")).perform(click());
+
+        onView(withId(R.id.textView)).check(matches(withText("4")));
+    }
+
+    @Test
     public void TestClearButton() {
         onView(withText("3")).perform(click());
         onView(withText("C")).perform(click());
