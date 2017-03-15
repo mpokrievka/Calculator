@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class Calculator extends Activity implements View.OnClickListener {
    //         buttonSeven, buttonEight, buttonNine;
     private Button buttonAdd, buttonSubstract, buttonMultiply, buttonDivide, buttonEqual;
     private Button buttonC;
+    private TextView numberView;
     private ArrayList<Button> numberButtons = new ArrayList<Button>();
 
     public void setUpNumberButtonListener(){
@@ -48,10 +50,34 @@ public class Calculator extends Activity implements View.OnClickListener {
 
         setUpNumberButtonListener();
 
+        numberView = (TextView) findViewById(R.id.textView);
+
     }
 
     @Override
     public void onClick(View v) {
+      Button clickedButton = (Button) v;
+      switch(clickedButton.getId()){
+          case R.id.buttonAdd:
+              break;
+          case R.id.buttonSubstract:
+              break;
+          case R.id.buttonMultiply:
+              break;
+          case R.id.buttonDivide:
+              break;
+          case R.id.buttonEqual:
+              break;
+          case R.id.buttonC:
+              break;
+          default:
+              String recentNumber = numberView.getText().toString();
+              if(recentNumber.equals("0")){
+                  recentNumber = "";
+              }
+              recentNumber += clickedButton.getText().toString();
+              numberView.setText(recentNumber);
+      }
 
     }
 }
