@@ -38,6 +38,7 @@ public class CalculatorInstrumentedTest {
         onView(withText("=")).perform(click());
         onView(withText("C")).perform(click());
 
+
     }
 
 }
